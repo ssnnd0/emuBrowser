@@ -1,0 +1,142 @@
+Installation Instructions for Browser Emulator with Ultraviolet
+
+Linux Installation:
+------------------
+1. Install Node.js and npm:
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+   sudo apt-get install -y nodejs
+   ```
+
+2. Install Git:
+   ```bash
+   sudo apt-get install git
+   ```
+
+3. Clone the repository:
+   ```bash
+   git clone <your-repository-url>
+   cd browser-emulator
+   ```
+
+4. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+5. Set up SSL certificates for Bare server (optional):
+   ```bash
+   mkdir -p bare/ssl
+   openssl req -x509 -newkey rsa:4096 -keyout bare/ssl/key.pem -out bare/ssl/cert.pem -days 365 -nodes
+   ```
+
+6. Start the application:
+   ```bash
+   npm start
+   ```
+
+Windows Installation:
+-------------------
+1. Install Node.js:
+   - Download Node.js installer from https://nodejs.org/
+   - Run the installer and follow the installation wizard
+   - Verify installation by opening Command Prompt and typing:
+     ```bash
+     node --version
+     npm --version
+     ```
+
+2. Install Git:
+   - Download Git installer from https://git-scm.com/download/win
+   - Run the installer and follow the installation wizard
+   - Verify installation:
+     ```bash
+     git --version
+     ```
+
+3. Clone the repository:
+   ```bash
+   git clone <your-repository-url>
+   cd browser-emulator
+   ```
+
+4. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+5. Set up SSL certificates for Bare server (optional):
+   - Install OpenSSL for Windows
+   - Run in Command Prompt:
+     ```bash
+     mkdir bare\ssl
+     openssl req -x509 -newkey rsa:4096 -keyout bare\ssl\key.pem -out bare\ssl\cert.pem -days 365 -nodes
+     ```
+
+6. Start the application:
+   ```bash
+   npm start
+   ```
+
+Required Dependencies:
+--------------------
+The following dependencies will be automatically installed:
+- express
+- socket.io
+- cors
+- dotenv
+- body-parser
+- helmet
+- compression
+- express-rate-limit
+- jsonwebtoken
+- bcryptjs
+- mongoose (if using MongoDB)
+- node-fetch
+- ws
+- uuid
+- @tomphttp/bare-server-node
+- @titaniumnetwork-dev/ultraviolet
+- uv
+
+Development Dependencies:
+----------------------
+- nodemon
+- jest
+- supertest
+- eslint
+- prettier
+
+Environment Variables:
+--------------------
+Create a .env file in the root directory with the following variables:
+```
+PORT=3000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+GOOGLE_API_KEY=your_google_api_key
+STRIPE_KEY=your_stripe_key
+PAYPAL_CLIENT_ID=your_paypal_client_id
+TRANSLATE_API_KEY=your_translate_api_key
+UV_HOST=0.0.0.0
+UV_PORT=8080
+```
+
+Note: Replace all placeholder values (your_*) with your actual API keys and credentials.
+
+Ultraviolet Configuration:
+------------------------
+The UV backend is configured to run on port 8080 by default. You can change this in the .env file.
+The following endpoints are available:
+- /service/ - UV proxy service
+- /bare/ - Bare server
+- /uv/ - UV static files
+
+Security Notes:
+-------------
+1. Always use HTTPS in production
+2. Keep your API keys secure
+3. Configure SSL certificates for the Bare server
+4. Set appropriate CORS policies
+5. Configure rate limiting for your needs
+6. Use secure WebSocket connections
