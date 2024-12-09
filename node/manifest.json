@@ -1,0 +1,44 @@
+{
+    "name": "Browser Emulator",
+    "short_name": "Browser",
+    "description": "A modern web browser emulator with Chrome-like features",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4285f4",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "permissions": [
+        "webNavigation",
+        "tabs",
+        "activeTab",
+        "storage",
+        "downloads",
+        "history",
+        "bookmarks",
+        "clipboardRead",
+        "clipboardWrite"
+    ],
+    "shortcuts": [
+        {
+            "name": "New Tab",
+            "short_name": "New Tab",
+            "description": "Open a new tab",
+            "url": "/",
+            "icons": [{ "src": "/icons/new-tab.png", "sizes": "192x192" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "categories": ["productivity", "utilities"]
+} 
