@@ -1,0 +1,577 @@
+// Variables
+$colors: (
+  primary: #4285f4,
+  primary-dark: #3367d6,
+  secondary: #34a853,
+  warning: #fbbc05,
+  error: #ea4335,
+  success: #0f9d58
+);
+
+$theme: (
+  light: (
+    background: #ffffff,
+    surface: #f8f9fa,
+    surface-medium: #dfe0e1,
+    text-primary: #202124,
+    text-secondary: #5f6368,
+    border: #dadce0,
+    hover: #f1f3f4,
+    active: #e8f0fe
+  ),
+  dark: (
+    background: #202124,
+    surface: #292a2d,
+    text-primary: #e8eaed,
+    text-secondary: #9aa0a6,
+    border: #3c4043,
+    hover: #35363a,
+    active: #3c4043
+  )
+);
+
+$shadows: (
+  sm: 0 1px 2px rgba(0, 0, 0, 0.1),
+  md: 0 2px 4px rgba(0, 0, 0, 0.1),
+  lg: 0 4px 8px rgba(0, 0, 0, 0.1),
+  xl: 0 8px 16px rgba(0, 0, 0, 0.1)
+);
+
+$typography: (
+  primary: (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif),
+  monospace: ('SF Mono', Monaco, Menlo, Consolas, 'Ubuntu Mono', monospace)
+);
+
+$font-sizes: (
+  xs: 12px,
+  sm: 14px,
+  md: 16px,
+  lg: 18px,
+  xl: 20px
+);
+
+$spacing: (
+  xs: 4px,
+  sm: 8px,
+  md: 16px,
+  lg: 24px,
+  xl: 32px
+);
+
+$radius: (
+  sm: 4px,
+  md: 8px,
+  lg: 12px,
+  xl: 16px,
+  full: 9999px
+);
+
+$transitions: (
+  fast: 150ms ease,
+  normal: 250ms ease,
+  slow: 350ms ease
+);
+
+$z-index: (
+  dropdown: 1000,
+  sticky: 1020,
+  fixed: 1030,
+  modal: 1040,
+  popover: 1050,
+  tooltip: 1060
+);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($property: all) {
+  transition: $property map-get($transitions, normal);
+}
+
+// Reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Base styles
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: map-get($typography, primary);
+  font-size: map-get($font-sizes, sm);
+  line-height: 1.5;
+  color: map-get(map-get($theme, light), text-primary);
+  background: map-get(map-get($theme, light), background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Navigation
+.nav-buttons {
+  display: flex;
+  gap: map-get($spacing, xs);
+}
+
+.button {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: map-get($radius, full);
+  color: map-get(map-get($theme, light), text-secondary);
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background: map-get(map-get($theme, light), hover);
+    color: map-get(map-get($theme, light), text-primary);
+  }
+
+  &:active {
+    background: map-get(map-get($theme, light), active);
+    transform: scale(0.95);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// URL Bar
+#url-bar-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: map-get(map-get($theme, light), hover);
+  border-radius: map-get($radius, full);
+  padding: 0 map-get($spacing, md);
+  margin: 0 map-get($spacing, md);
+  transition: all map-get($transitions, normal);
+  border: 1px solid transparent;
+
+  &:focus-within {
+    background: map-get(map-get($theme, light), background);
+    border-color: map-get($colors, primary);
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+  }
+}
+
+// Search Engine Logos
+.search-engine-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-right: map-get($spacing, sm);
+
+  &.google {
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%234285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="%2334A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="%23FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="%23EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>');
+  }
+
+  &.bing {
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23008373" d="M11.4 5.4v32.6l8.5 4.7 18.2-10.5v-8.9l-16.9 7.1 1.1-19.6z"/></svg>');
+  }
+
+  &.duckduckgo {
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23DE5833" d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4z"/><path fill="%23FFF" d="M33.5 22.5c0 5.25-4.25 9.5-9.5 9.5s-9.5-4.25-9.5-9.5 4.25-9.5 9.5-9.5 9.5 4.25 9.5 9.5z"/></svg>');
+  }
+
+  &.yahoo {
+    content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%234A089F" d="M24.5 4L35 26.5l10.5-22.5h-21zM12 46l12-25.5L36 46H12z"/></svg>');
+  }
+}
+
+// Site Info
+.site-info {
+  display: flex;
+  align-items: center;
+  gap: map-get($spacing, xs);
+}
+
+#site-favicon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+#site-security {
+  font-size: map-get($font-sizes, xs);
+  color: map-get(map-get($theme, light), text-secondary);
+}
+
+// URL Bar Input
+#url-bar {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: map-get($font-sizes, sm);
+  color: map-get(map-get($theme, light), text-primary);
+  outline: none;
+  padding: 0;
+
+  &::placeholder {
+    color: map-get(map-get($theme, light), text-secondary);
+  }
+}
+
+// Tab Bar
+#tab-bar {
+  display: flex;
+  gap: 2px;
+  padding: map-get($spacing, xs) map-get($spacing, sm) 0;
+  background: map-get(map-get($theme, light), surface-medium);
+  user-select: none;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: map-get($spacing, sm);
+  min-width: 150px;
+  max-width: 200px;
+  height: 36px;
+  padding: 0 map-get($spacing, sm);
+  background: map-get(map-get($theme, light), hover);
+  border-radius: map-get($radius, md) map-get($radius, md) 0 0;
+  cursor: pointer;
+  @include transition;
+  flex: 1;
+  white-space: nowrap;
+
+  &.active {
+    background: map-get(map-get($theme, light), background);
+    box-shadow: map-get($shadows, sm);
+
+    .tab-title {
+      color: map-get(map-get($theme, light), text-primary);
+    }
+  }
+}
+
+.ntab {
+  display: flex;
+  align-items: center;
+  gap: map-get($spacing, sm);
+  min-width: 25px;
+  max-width: 25px;
+  height: 36px;
+  padding: 0 map-get($spacing, sm);
+  border-radius: map-get($radius, md) map-get($radius, md) 0 0;
+  cursor: pointer;
+  @include transition;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.tab-favicon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.tab-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: map-get($font-sizes, xs);
+  color: map-get(map-get($theme, light), text-secondary);
+
+  .tab.active & {
+    color: map-get(map-get($theme, light), text-primary);
+  }
+}
+
+// Container styles
+#browser-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// Enhanced top bar styles
+#top-bar {
+  background: map-get(map-get($theme, light), background);
+  padding: map-get($spacing, sm) map-get($spacing, md);
+  display: flex;
+  align-items: center;
+  gap: map-get($spacing, sm);
+  box-shadow: 0 2px 4px var(--shadow-light);
+  position: relative;
+  z-index: map-get($z-index, sticky);
+}
+
+// Bookmarks bar styles
+#bookmarks-bar {
+  display: flex;
+  padding: 0 6px;
+  background-color: map-get(map-get($theme, light), background);
+  border-bottom: 1px solid map-get(map-get($theme, light), border);
+  overflow-x: auto;
+
+  .bookmark {
+    margin-right: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: map-get($font-sizes, xs);
+    color: #3c4043;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: map-get($radius, sm);
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background-color: #e8eaed;
+    }
+
+    &-favicon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+  }
+}
+
+// Frame container
+#frame-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#dynamicFrame {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#content-area {
+  flex: 1;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+// Accessibility styles
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Media Queries
+@media (max-width: 480px) {
+  #tab-bar {
+    display: none;
+  }
+
+  #top-bar {
+    flex-wrap: wrap;
+  }
+
+  #url-bar-container {
+    order: -1;
+    width: 100%;
+    margin: map-get($spacing, xs) 0;
+  }
+
+  .nav-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+// Print styles
+@media print {
+  #top-bar,
+  #tab-bar,
+  #bookmarks-bar,
+  #status-bar {
+    display: none;
+  }
+
+  #content-area {
+    height: max-height;
+    width: max-width;
+  }
+}
+
+// Dark theme styles
+@mixin dark-theme {
+  background: map-get(map-get($theme, dark), background);
+  color: map-get(map-get($theme, dark), text-primary);
+
+  .button {
+    color: map-get(map-get($theme, dark), text-secondary);
+
+    &:hover {
+      background: map-get(map-get($theme, dark), hover);
+      color: map-get(map-get($theme, dark), text-primary);
+    }
+
+    &:active {
+      background: map-get(map-get($theme, dark), active);
+    }
+  }
+
+  #url-bar-container {
+    background: map-get(map-get($theme, dark), surface);
+    border-color: map-get(map-get($theme, dark), border);
+
+    &:focus-within {
+      background: map-get(map-get($theme, dark), background);
+    }
+  }
+
+  #url-bar {
+    color: map-get(map-get($theme, dark), text-primary);
+
+    &::placeholder {
+      color: map-get(map-get($theme, dark), text-secondary);
+    }
+  }
+
+  .tab {
+    background: map-get(map-get($theme, dark), surface);
+
+    &.active {
+      background: map-get(map-get($theme, dark), background);
+    }
+  }
+
+  #tab-bar {
+    background: map-get(map-get($theme, dark), surface);
+  }
+
+  #bookmarks-bar {
+    background: map-get(map-get($theme, dark), background);
+    border-color: map-get(map-get($theme, dark), border);
+
+    .bookmark {
+      color: map-get(map-get($theme, dark), text-secondary);
+
+      &:hover {
+        background: map-get(map-get($theme, dark), hover);
+      }
+    }
+  }
+}
+
+// Apply dark theme when system preference is dark
+@media (prefers-color-scheme: dark) {
+  body {
+    @include dark-theme;
+  }
+}
+
+// Apply dark theme when class is present
+body.dark-theme {
+  @include dark-theme;
+}
+
+// Responsive design adjustments
+@media (max-width: 768px) {
+  #bookmarks-bar {
+    display: none;
+  }
+
+  .tab {
+    min-width: 120px;
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+// Apply animations
+.fade-in {
+  animation: fadeIn map-get($transitions, normal);
+}
+
+.slide-in {
+  animation: slideIn map-get($transitions, normal);
+}
+
+// Focus styles
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid map-get($colors, primary);
+  outline-offset: 2px;
+}
+
+// Scrollbar styles
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: map-get($radius, full);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Dark theme scrollbar
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
