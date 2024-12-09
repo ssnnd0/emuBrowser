@@ -43,8 +43,8 @@ sudo apt-get install git
 
 3. Clone and setup:
 ```bash
-git clone <repository-url>
-cd browser-emulator
+git clone https://github.com/ssnnd0/emuBrowser
+cd emuBrowser
 npm install
 ```
 
@@ -54,8 +54,8 @@ npm install
 2. Download and install Git from [git-scm.com](https://git-scm.com/download/win)
 3. Clone and setup:
 ```bash
-git clone [<repository-url>](https://github.com/ssnnd0/emuBrowser)
-cd browser-emulator
+git clone https://github.com/ssnnd0/emuBrowser
+cd emuBrowser
 npm install
 ```
 
@@ -65,10 +65,9 @@ npm install
 ```env
 PORT=3000
 MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_jwt_secret (node -e "console.log(require('crypto').randomBytes(32).toString('hex'));")
 GOOGLE_API_KEY=your_google_api_key
 STRIPE_KEY=your_stripe_key
-PAYPAL_CLIENT_ID=your_paypal_client_id
 TRANSLATE_API_KEY=your_translate_api_key
 UV_HOST=0.0.0.0
 UV_PORT=8080
