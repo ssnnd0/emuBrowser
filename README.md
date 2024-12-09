@@ -65,7 +65,7 @@ npm install
 ```env
 PORT=3000
 MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret (node -e "console.log(require('crypto').randomBytes(32).toString('hex'));")
+JWT_SECRET=your_jwt_secret [node -e "console.log(require('crypto').randomBytes(32).toString('hex'));"]
 GOOGLE_API_KEY=your_google_api_key
 STRIPE_KEY=your_stripe_key
 TRANSLATE_API_KEY=your_translate_api_key
