@@ -54,7 +54,7 @@ npm install
 2. Download and install Git from [git-scm.com](https://git-scm.com/download/win)
 3. Clone and setup:
 ```bash
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/ssnnd0/emuBrowser)
 cd browser-emulator
 npm install
 ```
